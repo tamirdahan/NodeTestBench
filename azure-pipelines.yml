@@ -15,7 +15,18 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- task: JFrogNpm@1
+  inputs:
+    command: 'install'
+    artifactoryConnection: 'jfrog artifactory'
+    sourceRepo: 'npm-pipeline-virtual-npm'
+    collectBuildInfo: true
+    threads: '1'
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
+    includeEnvVars: true
+
+# - script: |
+#    npm install
+#    npm run build
+#  displayName: 'npm install and build'
